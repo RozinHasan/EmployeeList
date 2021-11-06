@@ -12,7 +12,6 @@ const Input = ({ placeholder, onchangeText, customStyle, secureInput = false, va
 			height: 60,
 			justifyContent: 'center',
 			alignItems: 'center',
-			// paddingVertical: 10,
 			borderRadius: 10,
 			borderColor: 'grey',
 			backgroundColor: '#F7F8FD',

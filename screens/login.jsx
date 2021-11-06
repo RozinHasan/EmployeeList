@@ -26,7 +26,7 @@ const Login = ({ navigation }) => {
 		firebase
 			.auth()
 			.signInWithEmailAndPassword(email.trim(), password.trim())
-			.then((response) => {
+			.then(() => {
 				setLoading(false);
 			})
 			.catch((err) => {
@@ -41,12 +41,6 @@ const Login = ({ navigation }) => {
 	};
 	return (
 		<SafeAreaView style={{ flexDirection: 'column' }}>
-			<FlashMessage
-				position="top"
-				hideStatusBar= {false}
-				hideOnPress= {true}
-				titleStyle = {{fontWeight: 'bold'}}
-			/>
 			<ScrollView>
 			<Header title="Login" />
 			<Image

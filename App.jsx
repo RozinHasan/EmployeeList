@@ -8,6 +8,7 @@ import SignUp from './screens/signup';
 import { firebase } from './components/configuration/config'
 import Create from './screens/create';
 import Edit from './screens/edit';
+import FlashMessage from 'react-native-flash-message';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +22,12 @@ const AppTheme = {
 };
 
 export default function App() {
+      <FlashMessage
+      position="top"
+      hideStatusBar= {false}
+      hideOnPress= {true}
+      titleStyle = {{fontWeight: 'bold'}}
+    />
 
   const [user, setUser] = React.useState(false)
   const [loading, setLoading] = React.useState(true)

@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import React from 'react';
-import { ActivityIndicator, Image, Pressable, ScrollView, StyleSheet, View, Text } from 'react-native';
+import { ActivityIndicator, Image, Pressable, ScrollView, StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Button from '../components/button';
 import { firebase } from '../components/configuration/config';
@@ -20,8 +20,11 @@ const Create = ({ user, navigation }) => {
 	const [ loading, setLoading ] = React.useState(false);
 	const [ image, setImage ] = React.useState(null);
 
-	const shiftArray = async (title) => {
-		setShift([ ...shift, title ]);
+	const shiftArray = (options, index) => {
+		if(shift.indexOf(options) === -1) {
+			setShift([...shift,options])
+		}
+		console.log(shift)
 	};
 
 	const pickImage = async () => {
@@ -35,14 +38,14 @@ const Create = ({ user, navigation }) => {
 			const blob = await new Promise((resolve, reject) => {
 				const xhr = new XMLHttpRequest();
 				xhr.onload = function() {
-					resolve(xhr.response); // when BlobModule finishes reading, resolve with the blob
+					resolve(xhr.response);
 				};
 				xhr.onerror = function() {
-					reject(new TypeError('Network request failed')); // error occurred, rejecting
+					reject(new TypeError('Network request failed'));
 				};
-				xhr.responseType = 'blob'; // use BlobModule's UriHandler
-				xhr.open('GET', result.uri, true); // fetch the blob from uri in async mode
-				xhr.send(null); // no initial data
+				xhr.responseType = 'blob';
+				xhr.open('GET', result.uri, true);
+				xhr.send(null);
 			});
 
 			const ref = firebase.storage().ref().child(new Date().getTime().toString());
@@ -120,7 +123,15 @@ const Create = ({ user, navigation }) => {
 				<Text style={{ marginLeft: 30, marginBottom: 20 }}>You can select multiple shifts</Text>
 				<View style={{ flexDirection: 'row', alignSelf: 'center' }}>
 					{SHIFT_OPTIONS.map((options, index) => (
-						<Selection key={index} title={options} value={shift} setValue={(title) => shiftArray(title)} />
+						<Selection key={index} title={options} value={["Sat", "Sun"]} setValue={(options, index) => 
+							shiftArray(options, index)
+							// setShift(options)
+						} />
+						// <TouchableOpacity onPress = {() => {
+						// 	setShift(options)
+						// 	console.log(shift)}}>
+						// <Text>{options}</Text>
+						// </TouchableOpacity>
 					))}
 				</View>
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, ActivityIndicator, Pressable, Image } from 'react-native';
+import { View, StyleSheet, ActivityIndicator, Pressable, Image, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Button from '../components/button';
 import Input from '../components/input';
@@ -85,6 +85,7 @@ const Edit = ({ route, navigation }) => {
 
 	return (
 		<SafeAreaView style={{ marginTop: 20 }}>
+			<ScrollView>
 			<Pressable
 				style={{
 					height: 120,
@@ -124,10 +125,12 @@ const Edit = ({ route, navigation }) => {
 			</View>
 			<View style={{ flexDirection: 'row', alignSelf: 'center' }}>
 				{SHIFT_OPTIONS.map((options, index) => (
-					<Selection key={index} title={options} value={shift} setValue={(title) => shiftArray(title)} />
+					// <Selection key={index} title={options} value={shift} setValue={(title) => shiftArray(title)} />
+					<Text>{options}</Text>
 				))}
 			</View>
 			{loading ? <ActivityIndicator /> : <Button title="Save" onPress={() => onUpdate()} />}
+			</ScrollView>
 		</SafeAreaView>
 	);
 };
