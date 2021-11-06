@@ -1,7 +1,16 @@
 import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import React from 'react';
-import { ActivityIndicator, Image, Pressable, ScrollView, StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import {
+	ActivityIndicator,
+	Image,
+	Pressable,
+	ScrollView,
+	StyleSheet,
+	View,
+	Text,
+	TouchableOpacity
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Button from '../components/button';
 import { firebase } from '../components/configuration/config';
@@ -20,11 +29,17 @@ const Create = ({ user, navigation }) => {
 	const [ loading, setLoading ] = React.useState(false);
 	const [ image, setImage ] = React.useState(null);
 
-	const shiftArray = (options, index) => {
-		if(shift.indexOf(options) === -1) {
-			setShift([...shift,options])
+	const shiftArray = (options) => {
+		var temp = shift;
+
+		if (temp.indexOf(options) === -1) {
+			temp.push(options);
+			setShift(temp);
+		} else if (temp.indexOf(options) !== -1) {
+			temp.splice(temp.indexOf(options), 1);
+			setShift(temp);
 		}
-		console.log(shift)
+		console.log(shift);
 	};
 
 	const pickImage = async () => {
@@ -44,7 +59,7 @@ const Create = ({ user, navigation }) => {
 					reject(new TypeError('Network request failed'));
 				};
 				xhr.responseType = 'blob';
-				xhr.open('GET', result.uri, true);
+				xhr.open('GET', result, true);
 				xhr.send(null);
 			});
 
@@ -95,9 +110,9 @@ const Create = ({ user, navigation }) => {
 					{image ? (
 						<Image source={{ uri: image }} style={{ height: '100%', width: '100%', resizeMode: 'cover' }} />
 					) : (
-						<View style = {{flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-						<Ionicons name="image" size={40} color="white" />
-						<Text style = {{color: 'white'}}>Add Image</Text>
+						<View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+							<Ionicons name="image" size={40} color="white" />
+							<Text style={{ color: 'white' }}>Add Image</Text>
 						</View>
 					)}
 				</Pressable>
@@ -123,15 +138,11 @@ const Create = ({ user, navigation }) => {
 				<Text style={{ marginLeft: 30, marginBottom: 20 }}>You can select multiple shifts</Text>
 				<View style={{ flexDirection: 'row', alignSelf: 'center' }}>
 					{SHIFT_OPTIONS.map((options, index) => (
-						<Selection key={index} title={options} value={["Sat", "Sun"]} setValue={(options, index) => 
-							shiftArray(options, index)
-							// setShift(options)
-						} />
-						// <TouchableOpacity onPress = {() => {
-						// 	setShift(options)
-						// 	console.log(shift)}}>
-						// <Text>{options}</Text>
-						// </TouchableOpacity>
+						<Selection
+							key={index}
+							title={options}
+							setValue={shiftArray}
+						/>
 					))}
 				</View>
 
