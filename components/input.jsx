@@ -38,8 +38,7 @@ export default Input;
 
 const styles = StyleSheet.create({
 	input: {
-		
-		marginHorizontal: 16,
+		paddingHorizontal: 20,
 		flex: 1,
 		width: '100%',
 		height: '100%',

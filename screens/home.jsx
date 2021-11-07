@@ -116,16 +116,15 @@ const Home = ({ navigation }) => {
 				}}
 			>
 				<Text style={{ fontSize: 20, fontWeight: 'bold' }}>My employees</Text>
-				<TouchableOpacity onPress={() => navigation.navigate('Create')}>
+				{ employee.length !== 0 && <TouchableOpacity onPress={() => navigation.navigate('Create')}>
 				<Ionicons name="add-circle" size={30} color="black" />				
-				</TouchableOpacity>
+				</TouchableOpacity>}
 			</View>
 			
 			{employee.length === 0 ? (
 				<View
 					style={{
 						flexDirection: 'column',
-						alignItems: 'center'
 					}}
 				>
 					<Image
@@ -137,7 +136,7 @@ const Home = ({ navigation }) => {
 							resizeMode: 'contain'
 						}}
 					/>
-					<Text style={{ textAlign: 'center' }}>Sorry you do not have employees</Text>
+					<Text style={{ textAlign: 'center', fontWeight: 'bold' }}>Sorry you do not have employees</Text>
 					<Button title="Add an employee" onPress={() => navigation.navigate('Create')} />
 				</View>
 			) : (

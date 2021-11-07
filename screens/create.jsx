@@ -1,17 +1,10 @@
 import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
+import LottieView from 'lottie-react-native';
 import React from 'react';
-import {
-	ActivityIndicator,
-	Image,
-	Pressable,
-	ScrollView,
-	StyleSheet,
-	View,
-	Text,
-	TouchableOpacity
-} from 'react-native';
+import { Image, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import uuid from 'react-native-uuid';
 import Button from '../components/button';
 import { firebase } from '../components/configuration/config';
 import Input from '../components/input';
@@ -29,14 +22,14 @@ const Create = ({ user, navigation }) => {
 	const [ loading, setLoading ] = React.useState(false);
 	const [ image, setImage ] = React.useState(null);
 
-	const shiftArray = (options) => {
+	const shiftArray = (item) => {
 		var temp = shift;
 
-		if (temp.indexOf(options) === -1) {
-			temp.push(options);
+		if (temp.indexOf(item) === -1) {
+			temp.push(item);
 			setShift(temp);
-		} else if (temp.indexOf(options) !== -1) {
-			temp.splice(temp.indexOf(options), 1);
+		} else {
+			temp.splice(temp.indexOf(item), 1);
 			setShift(temp);
 		}
 		console.log(shift);
@@ -59,11 +52,11 @@ const Create = ({ user, navigation }) => {
 					reject(new TypeError('Network request failed'));
 				};
 				xhr.responseType = 'blob';
-				xhr.open('GET', result, true);
+				xhr.open('GET', result.uri, true);
 				xhr.send(null);
 			});
 
-			const ref = firebase.storage().ref().child(new Date().getTime().toString());
+			const ref = firebase.storage().ref().child(uuid.v4());
 
 			const snapshot = await ref.put(blob);
 			blob.close();
@@ -138,15 +131,18 @@ const Create = ({ user, navigation }) => {
 				<Text style={{ marginLeft: 30, marginBottom: 20 }}>You can select multiple shifts</Text>
 				<View style={{ flexDirection: 'row', alignSelf: 'center' }}>
 					{SHIFT_OPTIONS.map((options, index) => (
-						<Selection
-							key={index}
-							title={options}
-							setValue={shiftArray}
-						/>
+						<Selection key={index} value={shift} title={options} setValue={shiftArray} />
 					))}
 				</View>
-
-				{loading ? <ActivityIndicator /> : <Button title="Create" onPress={createData} />}
+				{loading ? (
+					<LottieView
+						style={{ justifyContent: 'center', alignItems: 'center', alignSelf: 'center' }}
+						source={require('../assets/loading.json')}
+						autoPlay={true}
+					/>
+				) : (
+					<Button title="Create" onPress={createData} />
+				)}
 			</ScrollView>
 		</SafeAreaView>
 	);

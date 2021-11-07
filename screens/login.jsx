@@ -8,7 +8,7 @@ import { Header } from '../components/header';
 import Input from '../components/input';
 import FlashMessage from 'react-native-flash-message';
 import { showMessage } from 'react-native-flash-message';
-
+import LottieView from 'lottie-react-native';
 
 const Login = ({ navigation }) => {
 	const [ email, setEmail ] = React.useState('');
@@ -31,7 +31,7 @@ const Login = ({ navigation }) => {
 			})
 			.catch((err) => {
 				showMessage({
-					message: "Error",
+					message: 'Error',
 					description: err.message,
 					type: 'danger'
 				});
@@ -42,14 +42,16 @@ const Login = ({ navigation }) => {
 	return (
 		<SafeAreaView style={{ flexDirection: 'column' }}>
 			<ScrollView>
-			<Header title="Login" />
-			<Image
-				style={{ height: 250, width: 350, alignSelf: 'center', marginBottom: 30 }}
-				source={require('../assets//images/login.png')}
-			/>
-			<Text style = {{fontSize: 20, fontWeight: 'bold', textAlign: 'center', marginBottom: 25}}>Manage all your employees</Text>
+				<Header title="Login" />
+				<Image
+					style={{ height: 250, width: 350, alignSelf: 'center', marginBottom: 30 }}
+					source={require('../assets//images/login.png')}
+				/>
+				<Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', marginBottom: 25 }}>
+					Manage all your employees
+				</Text>
 				<Input
-					textValue = "Hello"
+					textValue="Hello"
 					onchangeText={(text) => setEmail(text)}
 					placeholder="Enter your email..."
 					customStyle={{ borderBottomWidth: 0 }}
@@ -62,15 +64,23 @@ const Login = ({ navigation }) => {
 					}}
 					secureInput
 				/>
-			{loading ? <ActivityIndicator /> : <Button onPress={loginUser} title="Submit" />}
-			<Text style={{ alignSelf: 'center', marginTop: 10 }}>
-				Don't have an account?{' '}
-				<Text onPress={navigateToSignUp} style={{ color: 'blue' }}>
-					{' '}
-					Sign up
+				{loading ? (
+					<LottieView
+						style={{ justifyContent: 'center', alignItems: 'center', alignSelf: 'center' }}
+						source={require('../assets/loading.json')}
+						autoPlay={true}
+					/>
+				) : (
+					<Button onPress={loginUser} title="Submit" />
+				)}
+				<Text style={{ alignSelf: 'center', marginTop: 10 }}>
+					Don't have an account?{' '}
+					<Text onPress={navigateToSignUp} style={{ color: 'blue' }}>
+						{' '}
+						Sign up
+					</Text>
 				</Text>
-			</Text>
-		</ScrollView>
+			</ScrollView>
 		</SafeAreaView>
 	);
 };
