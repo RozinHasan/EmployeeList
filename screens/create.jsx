@@ -33,7 +33,7 @@ const Create = ({ navigation }) => {
 			temp.splice(temp.indexOf(item), 1);
 			setShift(temp);
 		}
-		console.warn(shift);
+	console.warn(shift);
 	};
 
 	// Image picker function
@@ -71,26 +71,35 @@ const Create = ({ navigation }) => {
 	function createData() {
 		setLoading(true);
 		const user = firebase.auth().currentUser;
+		if (name != '' && age != '' && gender != null) {
+			const employeeData = {
+				userId: user.uid,
+				name,
+				age,
+				gender,
+				image,
+				shift
+			};
+			const usersRef = firebase.firestore().collection('employees');
 
-		const employeeData = {
-			userId: user.uid,
-			name,
-			age,
-			gender,
-			image,
-			shift
-		};
-		const usersRef = firebase.firestore().collection('employees');
-
-		usersRef.add(employeeData);
-		// show success message
-		showMessage({
-			message: 'Success',
-			description: 'Your data has been saved!',
-			type: 'success'
-		});
-		setLoading(false);
-		navigation.navigate('Home');
+			usersRef.add(employeeData);
+			// show success message
+			showMessage({
+				message: 'Success',
+				description: 'Your data has been saved!',
+				type: 'success'
+			});
+			setLoading(false);
+			navigation.navigate('Home');
+		} 
+		else {
+			showMessage({
+				message: 'please fill the required fields',
+				type: 'warning',
+				position: 'bottom',
+			});
+			setLoading(false)
+		}
 	}
 
 	return (

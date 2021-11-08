@@ -1,7 +1,7 @@
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, View, LogBox } from 'react-native';
 import Home from './screens/home';
 import Login from './screens/login';
 import SignUp from './screens/signup';
@@ -9,7 +9,6 @@ import { firebase } from './components/configuration/config'
 import Create from './screens/create';
 import Edit from './screens/edit';
 import FlashMessage from 'react-native-flash-message';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +23,7 @@ const AppTheme = {
 
 export default function App() {
     
+  // LogBox.ignoreLogs(['Setting a timer']);
 
   const [user, setUser] = React.useState(false)
   const [loading, setLoading] = React.useState(true)

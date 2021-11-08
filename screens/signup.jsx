@@ -21,7 +21,7 @@ const SignUp = () => {
 	// user signup
 	const signUpUser = () => {
 		setLoading(true);
-		if(email != '' && password >= 8 && (password === confirm)) {
+		if(email != '' && password.toString().length >= 8 && (password === confirm && gender != null)) {
 		firebase
 			.auth()
 			.createUserWithEmailAndPassword(email.trim(), password.trim())

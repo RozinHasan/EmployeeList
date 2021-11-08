@@ -18,7 +18,8 @@ const Login = ({ navigation }) => {
 	const loginUser = () => {
 		setLoading(true);
 		// check if fields meet the requirement
-		if ((email != '') & (password >= 8)) {
+		if ((email != '') & (password != '')) {
+			if(password.toString().length >= 8) {
 			firebase
 				.auth()
 				.signInWithEmailAndPassword(email.trim(), password.trim())
@@ -33,6 +34,13 @@ const Login = ({ navigation }) => {
 					});
 					setLoading(false);
 				});
+			}
+			else {
+				showMessage({
+					message: 'password must be at least 8 characters long',
+					type: 'warning'
+				})
+			}
 		} else {
 			showMessage({
 				message: 'please check the infromation you provided',
