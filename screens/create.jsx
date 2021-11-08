@@ -3,6 +3,7 @@ import * as ImagePicker from 'expo-image-picker';
 import LottieView from 'lottie-react-native';
 import React from 'react';
 import { Image, Pressable, ScrollView, Text, View } from 'react-native';
+import { showMessage } from 'react-native-flash-message';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import uuid from 'react-native-uuid';
 import Button from '../components/button';
@@ -14,7 +15,7 @@ import Selection from '../components/selection';
 const GENDER_OPTIONS = [ 'Male', 'Female', 'Non-binary' ];
 const SHIFT_OPTIONS = [ 'Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri' ];
 
-const Create = ({ user, navigation }) => {
+const Create = ({ navigation }) => {
 	const [ name, setName ] = React.useState('');
 	const [ age, setAge ] = React.useState('');
 	const [ gender, setGender ] = React.useState(null);
@@ -22,9 +23,9 @@ const Create = ({ user, navigation }) => {
 	const [ loading, setLoading ] = React.useState(false);
 	const [ image, setImage ] = React.useState(null);
 
+	//grab input values and push it to shift array
 	const shiftArray = (item) => {
 		var temp = shift;
-
 		if (temp.indexOf(item) === -1) {
 			temp.push(item);
 			setShift(temp);
@@ -32,9 +33,10 @@ const Create = ({ user, navigation }) => {
 			temp.splice(temp.indexOf(item), 1);
 			setShift(temp);
 		}
-		console.log(shift);
+		console.warn(shift);
 	};
 
+	// Image picker function
 	const pickImage = async () => {
 		let result = await ImagePicker.launchImageLibraryAsync({
 			mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -65,8 +67,10 @@ const Create = ({ user, navigation }) => {
 		}
 	};
 
+	//create employee data
 	function createData() {
 		setLoading(true);
+		const user = firebase.auth().currentUser;
 
 		const employeeData = {
 			userId: user.uid,
@@ -76,10 +80,15 @@ const Create = ({ user, navigation }) => {
 			image,
 			shift
 		};
-
 		const usersRef = firebase.firestore().collection('employees');
 
 		usersRef.add(employeeData);
+		// show success message
+		showMessage({
+			message: 'Success',
+			description: 'Your data has been saved!',
+			type: 'success'
+		});
 		setLoading(false);
 		navigation.navigate('Home');
 	}

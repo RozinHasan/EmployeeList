@@ -9,6 +9,7 @@ import { firebase } from './components/configuration/config'
 import Create from './screens/create';
 import Edit from './screens/edit';
 import FlashMessage from 'react-native-flash-message';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,12 +23,7 @@ const AppTheme = {
 };
 
 export default function App() {
-      <FlashMessage
-      position="top"
-      hideStatusBar= {false}
-      hideOnPress= {true}
-      titleStyle = {{fontWeight: 'bold'}}
-    />
+    
 
   const [user, setUser] = React.useState(false)
   const [loading, setLoading] = React.useState(true)
@@ -55,12 +51,10 @@ export default function App() {
       <Stack.Navigator>
         {
           user ? (
-          <>
-          <Stack.Screen name="Home" options = {{headerShown: false}}>
-          { props => <Home {...props} user = {user} /> }
+            <>
+          <Stack.Screen name="Home" component={Home} options = {{headerShown: false}}>
           </Stack.Screen>
-          <Stack.Screen name="Create" >
-          { props => <Create {...props} user = {user} /> }
+          <Stack.Screen name="Create" component={Create} >
           </Stack.Screen>
           <Stack.Screen name="Edit" component={Edit}/>
 
@@ -72,6 +66,13 @@ export default function App() {
           </>
         }
       </Stack.Navigator>
+      {/* show flash message */}
+        <FlashMessage
+              position="bottom"
+              hideOnPress= {true}
+              floating={true}
+              titleStyle = {{fontWeight: 'bold'}}
+       />
     </NavigationContainer>
   );
 }

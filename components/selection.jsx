@@ -5,7 +5,7 @@ const Selection = ({ title, value, setValue, small = false  }) => {
 	const isSelected = value === title;
 	return (
 		<TouchableOpacity onPress={() => setValue(title, value)} style={styles.container}>
-			<View style={[ small ? styles.small : styles.outerCircle, isSelected && { backgroundColor: isSelected ? 'black' : 'white' } ]}>
+			<View style={[ small ? styles.small : styles.outerBorder, isSelected && { backgroundColor: isSelected ? 'black' : 'white' } ]}>
 			<Text style = {{color: isSelected ? 'white' : 'black', fontSize: small ? 10 : 15}}>{title}</Text>
 			</View>
 		</TouchableOpacity>
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
 		marginBottom: 20,
 		marginTop: 15
 	},
-	outerCircle: {
+	outerBorder: {
 		height: 38,
 		width: 38,
 		borderRadius: 1,

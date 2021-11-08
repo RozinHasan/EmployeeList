@@ -5,8 +5,8 @@ const RadioInput = ({ title, value, setValue }) => {
 	const isSelected = value === title;
 	return (
 		<TouchableOpacity onPress={() => setValue(title)} style={styles.container}>
-			<View style={[ styles.outerCircle, isSelected && { borderColor: 'blue' } ]}>
-				<View style={[ styles.innerCircle, isSelected && { borderColor: 'blue', backgroundColor: 'blue' } ]} />
+			<View style={[ styles.outerCircle, isSelected && { borderColor: 'dodgerblue' } ]}>
+				<View style={[ styles.innerCircle, isSelected && { borderColor: 'dodgerblue', backgroundColor: 'dodgerblue' } ]} />
 			</View>
 			<Text>{title}</Text>
 		</TouchableOpacity>

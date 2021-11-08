@@ -1,6 +1,6 @@
 import React from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
-import { showMessage } from 'react-native-flash-message';
+import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native';
+import FlashMessage, { showMessage } from 'react-native-flash-message';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Button from '../components/button';
 import { firebase } from '../components/configuration/config';
@@ -8,21 +8,23 @@ import { Header } from '../components/header';
 import Input from '../components/input';
 import RadioInput from '../components/radioInput';
 
+
 const SignUp = () => {
 	const OPTIONS = [ 'Male', 'Female', 'Non-binary' ];
 
 	const [ email, setEmail ] = React.useState('');
 	const [ password, setPassword ] = React.useState('');
 	const [ confirm, setConfirm ] = React.useState('');
-	const [ error, setError ] = React.useState(null);
 	const [ gender, setGender ] = React.useState(null);
 	const [ loading, setLoading ] = React.useState(false);
 
+	// user signup
 	const signUpUser = () => {
 		setLoading(true);
+		if(email != '' && password >= 8 && (password === confirm)) {
 		firebase
 			.auth()
-			.createUserWithEmailAndPassword(email, password)
+			.createUserWithEmailAndPassword(email.trim(), password.trim())
 			.then((response) => {
 				const uid = response.user.uid;
 
@@ -31,7 +33,6 @@ const SignUp = () => {
 					email,
 					password,
 				};
-
 				const usersRef = firebase.firestore().collection('users');
 
 				usersRef.doc(uid).set(profileData);
@@ -43,13 +44,21 @@ const SignUp = () => {
 					description: err.message,
 					type: 'danger'
 				});
-				setError(err.message);
 				setLoading(false);
 			});
+		}
+		else {
+			showMessage({
+				message: 'Please check the information provided',
+				type: 'warning'
+			})
+		}
+		setLoading(false)
 	};
 
 	return (
 		<SafeAreaView>
+			<ScrollView>
 			<Header backButton={true} title="Sign Up" />
 			<View
 				style={{
@@ -60,44 +69,42 @@ const SignUp = () => {
 				<Input
 					placeholder="Enter your email..."
 					customStyle={{ borderBottomWidth: 0 }}
-					onchangeText={(text) => setEmail(text.trim())}
+					onchangeText={(text) => setEmail(text)}
 				/>
 				<Input
 					placeholder="Enter your password"
 					customStyle={{ borderBottomWidth: 0 }}
-					onchangeText={(text) => setPassword(text.trim())}
+					onchangeText={(text) => setPassword(text)}
 					secureInput
 				/>
 				<Input
 					placeholder="Confirm password"
 					customStyle={{ borderBottomWidth: 0 }}
-					onchangeText={(text) => setConfirm(text.trim())}
+					onchangeText={(text) => setConfirm(text)}
 					secureInput
 				/>
 			</View>
 
+			{/* mapping gender values */}
 			{OPTIONS.map((options, index) => (
 				<RadioInput key={index} title={options} value={gender} setValue={setGender} />
 			))}
-			{loading ? <ActivityIndicator color="red" /> : <Button onPress={signUpUser} title="Submit" />}
+			{loading ? 
+			<LottieView
+				style={{ justifyContent: 'center', alignItems: 'center', alignSelf: 'center' }}
+				source={require('../assets/loading.json')}
+				autoPlay={true}
+			/>
+				: <Button onPress={signUpUser} title="Submit" />}
+
 			<Text style={{ alignSelf: 'center', marginTop: 10 }}>
 				By continuing you accept the <Text style={{ color: 'dodgerblue' }}> Terms of use</Text>
 				<Text> and </Text>
 				<Text style={{ color: 'dodgerblue' }}> Privacy policy</Text>
 			</Text>
+			</ScrollView>
 		</SafeAreaView>
 	);
 };
 
 export default SignUp;
-
-const styles = StyleSheet.create({
-	textInput: {
-		borderBottomWidth: 1,
-		borderBottomColor: 'grey',
-		flexDirection: 'row',
-		alignItems: 'center',
-		marginHorizontal: 16,
-		marginBottom: 20
-	}
-});
