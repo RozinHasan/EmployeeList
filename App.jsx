@@ -45,7 +45,7 @@ export default function App() {
     <View style = {{justifyContent: 'center', alignItems: 'center'}}>
      		<LottieView
           style={{ justifyContent: 'center', alignItems: 'center', alignSelf: 'center' }}
-          source={require('../assets/loading.json')}
+          source={require('./assets/loading.json')}
           autoPlay={true}
 				/>
     </View>
