@@ -126,13 +126,13 @@ const Home = ({ navigation }) => {
 	};
 
 	return (
-		<SafeAreaView style = {{flex: 1}}>
+		<SafeAreaView style={{ flex: 1 }}>
 			<View
 				style={{
 					justifyContent: 'space-between',
 					flexDirection: 'row',
 					marginHorizontal: 20,
-					paddingVertical: 15,
+					paddingVertical: 15
 				}}
 			>
 				<Text style={{ fontSize: 20, fontWeight: 'bold' }}>My employees</Text>
@@ -144,7 +144,7 @@ const Home = ({ navigation }) => {
 			</View>
 
 			{employee.length === 0 ? (
-				<View style = {{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+				<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
 					<Image
 						source={require('../assets/images/empty.png')}
 						style={{

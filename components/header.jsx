@@ -12,7 +12,7 @@ export const Header = ({ backButton = false, title }) => {
 				alignItems: 'center',
 				paddingLeft: 30,
 				paddingHorizontal: 12,
-				paddingVertical: 10,
+				paddingVertical: 10
 			}}
 		>
 			{backButton && (
