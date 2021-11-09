@@ -18,7 +18,7 @@ const Input = ({ placeholder, onchangeText, customStyle, secureInput = false, va
 			flexDirection: 'row',
 			alignItems: 'center',
 			marginHorizontal: 20,
-			marginBottom: 20
+			// marginBottom: 20
 		}}
 		>
 		<TextInput

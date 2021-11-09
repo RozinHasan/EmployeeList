@@ -33,7 +33,7 @@ const Create = ({ navigation }) => {
 			temp.splice(temp.indexOf(item), 1);
 			setShift(temp);
 		}
-	console.warn(shift);
+		console.warn(shift);
 	};
 
 	// Image picker function
@@ -91,14 +91,13 @@ const Create = ({ navigation }) => {
 			});
 			setLoading(false);
 			navigation.navigate('Home');
-		} 
-		else {
+		} else {
 			showMessage({
 				message: 'please fill the required fields',
 				type: 'warning',
-				position: 'bottom',
+				position: 'bottom'
 			});
-			setLoading(false)
+			setLoading(false);
 		}
 	}
 

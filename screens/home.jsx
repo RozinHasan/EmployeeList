@@ -1,12 +1,11 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, Image, FlatList, Alert, Animated, ActivityIndicator } from 'react-native';
-import { firebase } from '../components/configuration/config';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Ionicons } from '@expo/vector-icons';
-import Swipeable from 'react-native-gesture-handler/Swipeable';
+import { Feather, Ionicons } from '@expo/vector-icons';
 import LottieView from 'lottie-react-native';
-import { Feather } from '@expo/vector-icons';
+import React from 'react';
+import { Animated, FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import Button from '../components/button';
+import { firebase } from '../components/configuration/config';
 import Selection from '../components/selection';
 
 const Home = ({ navigation }) => {
@@ -15,10 +14,9 @@ const Home = ({ navigation }) => {
 	const [ loading, setLoading ] = React.useState(false);
 	const employeeRef = firebase.firestore().collection('employees');
 
-
 	//retrieve documents for current user
 	React.useEffect(() => {
-		setLoading(true)
+		setLoading(true);
 		const subscriber = employeeRef.where('userId', '==', currentUser.uid).onSnapshot((snapshot) => {
 			const newEmployee = [];
 			snapshot.forEach((doc) => {
@@ -28,7 +26,7 @@ const Home = ({ navigation }) => {
 				});
 			});
 			setEmployee(newEmployee);
-			setLoading(false)
+			setLoading(false);
 		});
 		return subscriber;
 	}, []);
@@ -36,13 +34,14 @@ const Home = ({ navigation }) => {
 	const renderEmployee = ({ item }) => {
 		const { name, age, color, id, image, shift, gender } = item;
 
-		return (
-			loading ? 	
+		return loading ? (
 			<LottieView
 				style={{ justifyContent: 'center', alignItems: 'center', alignSelf: 'center' }}
 				source={require('../assets/loading.json')}
 				autoPlay={true}
-			/> :
+			/>
+		) : (
+			//swipe to delete
 			<Swipeable
 				rightThreshold={-200}
 				renderRightActions={() => {
@@ -82,10 +81,25 @@ const Home = ({ navigation }) => {
 						{image ? (
 							<Image
 								source={{ uri: image }}
-								style={{ height: 60, width: 60,borderRadius: 30, resizeMode: 'cover', marginRight: 20 }}
+								style={{
+									height: 60,
+									width: 60,
+									borderRadius: 30,
+									resizeMode: 'cover',
+									marginRight: 20
+								}}
 							/>
 						) : (
-							<View style={{ height: 60, width: 60,borderRadius: 30, resizeMode: 'cover', marginRight: 20, borderWidth: 0.5 }} />
+							<View
+								style={{
+									height: 60,
+									width: 60,
+									borderRadius: 30,
+									resizeMode: 'cover',
+									marginRight: 20,
+									borderWidth: 0.5
+								}}
+							/>
 						)}
 						<View style={{ flexDirection: 'column' }}>
 							<Text style={{ color: color, fontWeight: 'bold' }}>{name}</Text>
@@ -95,9 +109,7 @@ const Home = ({ navigation }) => {
 							</View>
 							<View style={{ flexDirection: 'row', alignSelf: 'center' }}>
 								{/* mapping the sifts */}
-								{shift.map((options, index) => (
-									<Selection small key={index} title={options} />
-								))}
+								{shift.map((options, index) => <Selection small key={index} title={options} />)}
 							</View>
 						</View>
 					</View>
@@ -114,27 +126,25 @@ const Home = ({ navigation }) => {
 	};
 
 	return (
-		<SafeAreaView style={{ flex: 1 }}>
+		<SafeAreaView style = {{flex: 1}}>
 			<View
 				style={{
 					justifyContent: 'space-between',
 					flexDirection: 'row',
-					marginHorizontal: 25,
-					paddingVertical: 15
+					marginHorizontal: 20,
+					paddingVertical: 15,
 				}}
 			>
 				<Text style={{ fontSize: 20, fontWeight: 'bold' }}>My employees</Text>
-				{ employee.length !== 0 && <TouchableOpacity onPress={() => navigation.navigate('Create')}>
-				<Ionicons name="add-circle" size={30} color="black" />				
-				</TouchableOpacity>}
+				{employee.length !== 0 && (
+					<TouchableOpacity onPress={() => navigation.navigate('Create')}>
+						<Ionicons name="add-circle" size={30} color="black" />
+					</TouchableOpacity>
+				)}
 			</View>
-			
+
 			{employee.length === 0 ? (
-				<View
-					style={{
-						flexDirection: 'column',
-					}}
-				>
+				<View style = {{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
 					<Image
 						source={require('../assets/images/empty.png')}
 						style={{
@@ -145,9 +155,7 @@ const Home = ({ navigation }) => {
 						}}
 					/>
 					<Text style={{ textAlign: 'center', fontWeight: 'bold' }}>Sorry you do not have employees</Text>
-					<Button title="Add an employee" onPress={() => 
-						navigation.navigate('Create')
-						} />
+					<Button title="Add an employee" onPress={() => navigation.navigate('Create')} />
 				</View>
 			) : (
 				<FlatList

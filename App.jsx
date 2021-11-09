@@ -1,7 +1,8 @@
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import { ActivityIndicator, StyleSheet, View, LogBox } from 'react-native';
+import { ActivityIndicator, StyleSheet, View, LogBox, TouchableOpacity, Alert } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 import Home from './screens/home';
 import Login from './screens/login';
 import SignUp from './screens/signup';
@@ -23,7 +24,7 @@ const AppTheme = {
 
 export default function App() {
     
-  // LogBox.ignoreLogs(['Setting a timer']);
+  LogBox.ignoreLogs(['Setting a timer']);
 
   const [user, setUser] = React.useState(false)
   const [loading, setLoading] = React.useState(true)
@@ -54,7 +55,20 @@ export default function App() {
             <>
           <Stack.Screen name="Home" component={Home} options = {{headerShown: false}}>
           </Stack.Screen>
-          <Stack.Screen name="Create" component={Create} >
+          <Stack.Screen name="Create" component={Create} options = {{headerRight: () => 
+          <TouchableOpacity style = {{paddingRight: 25}} onPress={() => 
+            Alert.alert(
+              'Warning', 'Are you sure you want to Signout?',
+              [
+                {text: 'Yes', onPress: () => firebase.auth().signOut()},
+                {text: 'Cancel'},
+              ],
+              { 
+                cancelable: true 
+              }
+            )}>
+         <AntDesign name="poweroff" size={18} color="black" />
+        </TouchableOpacity>}} >
           </Stack.Screen>
           <Stack.Screen name="Edit" component={Edit}/>
 

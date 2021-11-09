@@ -1,13 +1,12 @@
 import React from 'react';
-import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native';
-import FlashMessage, { showMessage } from 'react-native-flash-message';
+import { ScrollView, Text, View } from 'react-native';
+import { showMessage } from 'react-native-flash-message';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Button from '../components/button';
 import { firebase } from '../components/configuration/config';
 import { Header } from '../components/header';
 import Input from '../components/input';
 import RadioInput from '../components/radioInput';
-
 
 const SignUp = () => {
 	const OPTIONS = [ 'Male', 'Female', 'Non-binary' ];
@@ -21,87 +20,88 @@ const SignUp = () => {
 	// user signup
 	const signUpUser = () => {
 		setLoading(true);
-		if(email != '' && password.toString().length >= 8 && (password === confirm && gender != null)) {
-		firebase
-			.auth()
-			.createUserWithEmailAndPassword(email.trim(), password.trim())
-			.then((response) => {
-				const uid = response.user.uid;
+		if (email != '' && password.toString().length >= 8 && (password === confirm && gender != null)) {
+			firebase
+				.auth()
+				.createUserWithEmailAndPassword(email.trim(), password.trim())
+				.then((response) => {
+					const uid = response.user.uid;
 
-				const profileData = {
-					id: uid,
-					email,
-					password,
-				};
-				const usersRef = firebase.firestore().collection('users');
+					const profileData = {
+						id: uid,
+						email,
+						password
+					};
+					const usersRef = firebase.firestore().collection('users');
 
-				usersRef.doc(uid).set(profileData);
-				setLoading(false);
-			})
-			.catch((err) => {
-				showMessage({
-					message: 'Error',
-					description: err.message,
-					type: 'danger'
+					usersRef.doc(uid).set(profileData);
+					setLoading(false);
+				})
+				.catch((err) => {
+					showMessage({
+						message: 'Error',
+						description: err.message,
+						type: 'danger'
+					});
+					setLoading(false);
 				});
-				setLoading(false);
-			});
-		}
-		else {
+		} else {
 			showMessage({
 				message: 'Please check the information provided',
 				type: 'warning'
-			})
+			});
 		}
-		setLoading(false)
+		setLoading(false);
 	};
 
 	return (
 		<SafeAreaView>
 			<ScrollView>
-			<Header backButton={true} title="Sign Up" />
-			<View
-				style={{
-					marginTop: 30,
-					justifyContent: 'center'
-				}}
-			>
-				<Input
-					placeholder="Enter your email..."
-					customStyle={{ borderBottomWidth: 0 }}
-					onchangeText={(text) => setEmail(text)}
-				/>
-				<Input
-					placeholder="Enter your password"
-					customStyle={{ borderBottomWidth: 0 }}
-					onchangeText={(text) => setPassword(text)}
-					secureInput
-				/>
-				<Input
-					placeholder="Confirm password"
-					customStyle={{ borderBottomWidth: 0 }}
-					onchangeText={(text) => setConfirm(text)}
-					secureInput
-				/>
-			</View>
+				<Header backButton={true} title="Sign Up" />
+				<View
+					style={{
+						marginTop: 30,
+						justifyContent: 'center'
+					}}
+				>
+					<Input
+						placeholder="Enter your email..."
+						customStyle={{ borderBottomWidth: 0 }}
+						onchangeText={(text) => setEmail(text)}
+					/>
+					<Input
+						placeholder="Enter your password"
+						customStyle={{ borderBottomWidth: 0 }}
+						onchangeText={(text) => setPassword(text)}
+						secureInput
+					/>
+					<Input
+						placeholder="Confirm password"
+						customStyle={{ borderBottomWidth: 0 }}
+						onchangeText={(text) => setConfirm(text)}
+						secureInput
+					/>
+				</View>
 
-			{/* mapping gender values */}
-			{OPTIONS.map((options, index) => (
-				<RadioInput key={index} title={options} value={gender} setValue={setGender} />
-			))}
-			{loading ? 
-			<LottieView
-				style={{ justifyContent: 'center', alignItems: 'center', alignSelf: 'center' }}
-				source={require('../assets/loading.json')}
-				autoPlay={true}
-			/>
-				: <Button onPress={signUpUser} title="Submit" />}
+				{/* mapping gender values */}
+				{OPTIONS.map((options, index) => (
+					<RadioInput key={index} title={options} value={gender} setValue={setGender} />
+				))}
+				{loading ? (
+					<LottieView
+						style={{ justifyContent: 'center', alignItems: 'center', alignSelf: 'center' }}
+						source={require('../assets/loading.json')}
+						autoPlay={true}
+					/>
+				) : (
+					<Button onPress={signUpUser} title="Submit" />
+				)}
 
-			<Text style={{ alignSelf: 'center', marginTop: 10 }}>
-				By continuing you accept the <Text style={{ color: 'dodgerblue' }}> Terms of use</Text>
-				<Text> and </Text>
-				<Text style={{ color: 'dodgerblue' }}> Privacy policy</Text>
-			</Text>
+				<Text style={{ alignSelf: 'center', marginTop: 10 }}>
+					By continuing you accept the <Text style={{ color: 'dodgerblue' }}> Terms of use</Text>
+					<Text> and </Text>
+					<Text style={{ color: 'dodgerblue' }}> Privacy policy</Text>
+				</Text>
 			</ScrollView>
 		</SafeAreaView>
 	);

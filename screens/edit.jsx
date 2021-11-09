@@ -1,14 +1,14 @@
-import React from 'react';
-import { View, StyleSheet, ActivityIndicator, Pressable, Image, ScrollView } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import Button from '../components/button';
-import Input from '../components/input';
-import { firebase } from '../components/configuration/config';
-import Selection from '../components/selection';
-import { showMessage } from 'react-native-flash-message';
 import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
+import React from 'react';
+import { ActivityIndicator, Image, Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { showMessage } from 'react-native-flash-message';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Button from '../components/button';
+import { firebase } from '../components/configuration/config';
+import Input from '../components/input';
 import RadioInput from '../components/radioInput';
+import Selection from '../components/selection';
 
 const GENDER_OPTIONS = [ 'Male', 'Female', 'Non-binary' ];
 const SHIFT_OPTIONS = [ 'Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri' ];
@@ -31,7 +31,7 @@ const Edit = ({ route, navigation }) => {
 	const [ image, setImage ] = React.useState(empImage);
 	const employeeRef = firebase.firestore().collection('employees');
 
-	console.warn(shift)
+	console.warn(shift);
 
 	// edit values
 	const onUpdate = () => {
@@ -39,7 +39,11 @@ const Edit = ({ route, navigation }) => {
 		employeeRef
 			.doc(id)
 			.update({
-				name, age, gender, image, shift
+				name,
+				age,
+				gender,
+				image,
+				shift
 			})
 			.then(() => {
 				showMessage({
