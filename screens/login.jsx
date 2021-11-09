@@ -55,18 +55,17 @@ const Login = ({ navigation }) => {
 					style={{ height: 250, width: 350, alignSelf: 'center', marginBottom: 30 }}
 					source={require('../assets//images/login.png')}
 				/>
-				<Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', marginBottom: 25 }}>
-					Manage all your employees
+				<Text style={{ fontSize: 16, fontWeight: 'bold', textAlign: 'center', marginBottom: 30 }}>
+					MANAGE ALL YOUR EMPLOYEES
 				</Text>
 				<Input
-					textValue="Hello"
+					textValue="Email"
 					onchangeText={(text) => setEmail(text)}
-					placeholder="Enter your email..."
 					customStyle={{ borderBottomWidth: 0 }}
 				/>
 				<Input
+					textValue="Password"
 					onchangeText={(text) => setPassword(text)}
-					placeholder="Enter your password"
 					customStyle={{
 						borderBottomWidth: 0
 					}}
@@ -83,7 +82,7 @@ const Login = ({ navigation }) => {
 				)}
 				<Text style={{ alignSelf: 'center', marginVertical: 10 }}>
 					Don't have an account?{' '}
-					<Text onPress={() => navigation.navigate('SignUp')} style={{ color: 'blue' }}>
+					<Text onPress={() => navigation.navigate('SignUp')} style={{ color: 'dodgerblue' }}>
 						{' '}
 						Sign up
 					</Text>

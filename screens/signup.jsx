@@ -61,22 +61,25 @@ const SignUp = () => {
 				<View
 					style={{
 						marginTop: 30,
-						justifyContent: 'center'
+						justifyContent: 'center',
+						marginBottom: 20
 					}}
 				>
 					<Input
-						placeholder="Enter your email..."
+						textValue="Email"
 						customStyle={{ borderBottomWidth: 0 }}
 						onchangeText={(text) => setEmail(text)}
 					/>
 					<Input
-						placeholder="Enter your password"
+						textValue="Password"
+						optionalText="At least 8 characters"
 						customStyle={{ borderBottomWidth: 0 }}
 						onchangeText={(text) => setPassword(text)}
 						secureInput
 					/>
 					<Input
-						placeholder="Confirm password"
+						textValue="Confirm password"
+						optionalText="Must match"
 						customStyle={{ borderBottomWidth: 0 }}
 						onchangeText={(text) => setConfirm(text)}
 						secureInput

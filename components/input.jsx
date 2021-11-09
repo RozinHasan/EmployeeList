@@ -1,10 +1,11 @@
 import React from 'react';
 import { StyleSheet, TextInput, Text, View } from 'react-native';
 
-const Input = ({ placeholder, onchangeText, customStyle, secureInput = false, value , textValue}) => {
+const Input = ({ placeholder, onchangeText, customStyle, secureInput = false , textValue, optionalText}) => {
 	return (
-		<View style = {{flexDirection: 'column'}}>
-		<Text value={textValue} style = {{ backgroundColor: 'white', fontSize: 20}}/>
+		<View style = {{flexDirection: 'column', marginHorizontal: 20,}}>
+		<Text style = {{fontSize: 16, marginBottom: 5, color: 'black', fontWeight: 'bold'}}>{textValue}</Text>
+		{ optionalText && <Text style = {{fontSize: 12, marginBottom: 14, color: 'grey'}}>{optionalText}</Text>}
 
 		<View
 		style={{
@@ -17,8 +18,7 @@ const Input = ({ placeholder, onchangeText, customStyle, secureInput = false, va
 			backgroundColor: '#F7F8FD',
 			flexDirection: 'row',
 			alignItems: 'center',
-			marginHorizontal: 20,
-			// marginBottom: 20
+			marginBottom: 20
 		}}
 		>
 		<TextInput
@@ -27,7 +27,7 @@ const Input = ({ placeholder, onchangeText, customStyle, secureInput = false, va
 			onChangeText={onchangeText}
 			style={[ styles.input, customStyle ]}
 			secureTextEntry = {secureInput}
-			value={value}
+			// value={value}
 			/>
 			</View>
 			</View>
