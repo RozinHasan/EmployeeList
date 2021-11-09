@@ -9,8 +9,8 @@ import uuid from 'react-native-uuid';
 import Button from '../components/button';
 import { firebase } from '../components/configuration/config';
 import Input from '../components/input';
-import RadioInput from '../components/radioInput';
 import Selection from '../components/selection';
+import RadioInput from '../components/radioInput';
 
 const GENDER_OPTIONS = [ 'Male', 'Female', 'Non-binary' ];
 const SHIFT_OPTIONS = [ 'Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri' ];

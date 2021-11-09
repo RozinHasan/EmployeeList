@@ -17,7 +17,7 @@ export const Header = ({ backButton = false, title }) => {
 		>
 			{backButton && (
 				<View>
-					<TouchableOpacity style={{}} onPress={() => navigation.goBack()}>
+					<TouchableOpacity onPress={() => navigation.goBack()}>
 						<Ionicons name="caret-back" size={24} color="black" />
 					</TouchableOpacity>
 				</View>

@@ -1,15 +1,16 @@
+import { AntDesign } from '@expo/vector-icons';
+import LottieView from 'lottie-react-native';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import { ActivityIndicator, StyleSheet, View, LogBox, TouchableOpacity, Alert } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
+import { Alert, LogBox, StyleSheet, TouchableOpacity, View } from 'react-native';
+import FlashMessage from 'react-native-flash-message';
+import { firebase } from './components/configuration/config';
+import Create from './screens/create';
+import Edit from './screens/edit';
 import Home from './screens/home';
 import Login from './screens/login';
 import SignUp from './screens/signup';
-import { firebase } from './components/configuration/config'
-import Create from './screens/create';
-import Edit from './screens/edit';
-import FlashMessage from 'react-native-flash-message';
 
 const Stack = createNativeStackNavigator();
 
@@ -42,7 +43,11 @@ export default function App() {
   if(loading) {
     return (
     <View style = {{justifyContent: 'center', alignItems: 'center'}}>
-      <ActivityIndicator/>
+     		<LottieView
+          style={{ justifyContent: 'center', alignItems: 'center', alignSelf: 'center' }}
+          source={require('../assets/loading.json')}
+          autoPlay={true}
+				/>
     </View>
     )
   }
