@@ -127,13 +127,11 @@ const Create = ({ navigation }) => {
 					)}
 				</Pressable>
 				<Input
-					textValue="Name"
 					onchangeText={(text) => setName(text)}
 					placeholder="Your name"
 					customStyle={{ borderBottomWidth: 0 }}
 				/>
 				<Input
-					textValue="Age"
 					onchangeText={(text) => setAge(text)}
 					placeholder="Your age"
 					customStyle={{ borderBottomWidth: 0 }}

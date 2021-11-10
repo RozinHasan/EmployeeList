@@ -6,7 +6,12 @@ const RadioInput = ({ title, value, setValue }) => {
 	return (
 		<TouchableOpacity onPress={() => setValue(title)} style={styles.container}>
 			<View style={[ styles.outerCircle, isSelected && { borderColor: 'dodgerblue' } ]}>
-				<View style={[ styles.innerCircle, isSelected && { borderColor: 'dodgerblue', backgroundColor: 'dodgerblue' } ]} />
+				<View
+					style={[
+						styles.innerCircle,
+						isSelected && { borderColor: 'dodgerblue', backgroundColor: 'dodgerblue' }
+					]}
+				/>
 			</View>
 			<Text>{title}</Text>
 		</TouchableOpacity>
@@ -20,7 +25,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		paddingHorizontal: 20,
 		marginBottom: 20,
-		marginTop: 15,
+		marginTop: 15
 	},
 	outerCircle: {
 		height: 20,

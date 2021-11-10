@@ -100,7 +100,7 @@ const SignUp = () => {
 					<Button onPress={signUpUser} title="Submit" />
 				)}
 
-				<Text style={{ alignSelf: 'center', marginTop: 10 }}>
+				<Text style={{ alignSelf: 'center' }}>
 					By continuing you accept the <Text style={{ color: 'dodgerblue' }}> Terms of use</Text>
 					<Text> and </Text>
 					<Text style={{ color: 'dodgerblue' }}> Privacy policy</Text>
