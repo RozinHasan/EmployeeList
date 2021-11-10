@@ -25,7 +25,7 @@ const AppTheme = {
 
 export default function App() {
     
-  // LogBox.ignoreLogs(['Setting a timer']);
+  LogBox.ignoreLogs(['Setting a timer']);
 
   const [user, setUser] = React.useState(false)
   const [loading, setLoading] = React.useState(true)

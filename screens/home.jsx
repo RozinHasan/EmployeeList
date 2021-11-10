@@ -8,6 +8,8 @@ import Button from '../components/button';
 import { firebase } from '../components/configuration/config';
 import Selection from '../components/selection';
 
+const SHIFT_OPTIONS = [ 'Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri' ];
+
 const Home = ({ navigation }) => {
 	const currentUser = firebase.auth().currentUser;
 	const [ employee, setEmployee ] = React.useState([]);
@@ -108,12 +110,19 @@ const Home = ({ navigation }) => {
 								<Text>{age}</Text>
 							</View>
 							<View style={{ flexDirection: 'row', alignSelf: 'center' }}>
-								{/* mapping the sifts */}
-								{shift.map((options, index) => <Selection small key={index} title={options} />)}
+								{/* mapping the sifts by filtering by shifts array */}
+								{SHIFT_OPTIONS.filter(
+									 function(e) {
+										return shift.indexOf(e) >= 0;
+									  },
+									  shift
+								).map((options, index) => <Selection small key={index} title = {options} />)
+								}
 							</View>
 						</View>
 					</View>
 					<TouchableOpacity
+					style = {{ alignSelf: 'flex-start'}}
 						onPress={() => {
 							navigation.navigate('Edit', { employee: item });
 						}}
@@ -162,7 +171,7 @@ const Home = ({ navigation }) => {
 					data={employee}
 					keyExtractor={(item) => item.id}
 					renderItem={renderEmployee}
-					contentContainerStyle={{ margin: 20 }}
+					contentContainerStyle={{ margin: 10 }}
 				/>
 			)}
 		</SafeAreaView>
