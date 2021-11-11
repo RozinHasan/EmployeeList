@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, TextInput, Text, View } from 'react-native';
 
-const Input = ({ placeholder, value, onchangeText, customStyle, secureInput = false, textValue, optionalText }) => {
+const Input = ({ placeholder, value, onchangeText, customStyle, secureInput = false, textValue, optionalText, onBlur }) => {
 	return (
 		<View style={{ flexDirection: 'column', marginHorizontal: 20 }}>
 			<Text style={{ fontSize: 16, marginBottom: 5, color: 'black', fontWeight: 'bold' }}>{textValue}</Text>
@@ -28,6 +28,7 @@ const Input = ({ placeholder, value, onchangeText, customStyle, secureInput = fa
 					style={[ styles.input, customStyle ]}
 					secureTextEntry={secureInput}
 					value={value}
+					onBlur={onBlur}
 				/>
 			</View>
 		</View>

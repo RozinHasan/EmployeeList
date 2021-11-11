@@ -4,7 +4,9 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 const Selection = ({ title, value, setValue, small = false }) => {
 	const isSelected = value === title;
 	return (
-		<TouchableOpacity onPress={() => setValue(title)} style={styles.container}>
+		<TouchableOpacity onPress={() => {
+			setValue(title)
+			}} style={styles.container}>
 			<View
 				style={[
 					small ? styles.small : styles.outerBorder,

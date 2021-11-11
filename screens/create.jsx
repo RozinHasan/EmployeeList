@@ -28,13 +28,14 @@ const Create = ({ navigation }) => {
 		var temp = shift;
 		if (temp.indexOf(item) === -1) {
 			temp.push(item);
-			setShift(temp);
+			setShift([...temp]);
 		} else {
 			temp.splice(temp.indexOf(item), 1);
-			setShift(temp);
+			setShift([...temp]);
 		}
 		console.warn(shift);
 	};
+
 
 	// Image picker function
 	const pickImage = async () => {
@@ -146,9 +147,9 @@ const Create = ({ navigation }) => {
 				<Text style={{ marginLeft: 30, marginBottom: 20 }}>You can select multiple shifts</Text>
 				<View style={{ flexDirection: 'row', alignSelf: 'center' }}>
 					{SHIFT_OPTIONS.map((options, index) => (
-						<Selection key={index} title={options} setValue={shiftArray} />
-					))}
-				</View>
+						<Selection key={index} title={options} value = {shift.find(options => options)} setValue={shiftArray} />
+						))}
+				</View> 
 				{loading ? (
 					<LottieView
 						style={{ justifyContent: 'center', alignItems: 'center', alignSelf: 'center' }}

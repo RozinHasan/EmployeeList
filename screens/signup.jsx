@@ -1,4 +1,5 @@
 import React from 'react';
+import LottieView from 'lottie-react-native';
 import { ScrollView, Text, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -17,10 +18,12 @@ const SignUp = () => {
 	const [ gender, setGender ] = React.useState(null);
 	const [ loading, setLoading ] = React.useState(false);
 
+
 	// user signup
 	const signUpUser = () => {
 		setLoading(true);
-		if (email != '' && password.toString().length >= 8 && (password === confirm && gender != null)) {
+		if (email != '' && password.toString().length >= 8 &&  gender != null) {
+			if(password == confirm) {
 			firebase
 				.auth()
 				.createUserWithEmailAndPassword(email.trim(), password.trim())
@@ -45,6 +48,13 @@ const SignUp = () => {
 					});
 					setLoading(false);
 				});
+			}
+			else {
+				showMessage ({
+					message: "passwords don't match",
+					type: 'warning',
+				})
+			}
 		} else {
 			showMessage({
 				message: 'Please check the information provided',
