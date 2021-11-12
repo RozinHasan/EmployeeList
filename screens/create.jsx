@@ -147,7 +147,8 @@ const Create = ({ navigation }) => {
 				<Text style={{ marginLeft: 30, marginBottom: 20 }}>You can select multiple shifts</Text>
 				<View style={{ flexDirection: 'row', alignSelf: 'center' }}>
 					{SHIFT_OPTIONS.map((options, index) => (
-						<Selection key={index} title={options} value = {shift.find(options => options)} setValue={shiftArray} />
+						<Selection key={index} title={options} value = {
+							shift.filter(item => item)} setValue={shiftArray} />
 						))}
 				</View> 
 				{loading ? (
