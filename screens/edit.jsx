@@ -55,7 +55,7 @@ const Edit = ({ route, navigation }) => {
 			.catch((err) => {
 				showMessage({
 					message: 'Failed',
-					description: 'Some error ocurred, please try again',
+					description: err.message,
 					type: 'danger'
 				});
 			});
@@ -160,13 +160,3 @@ const Edit = ({ route, navigation }) => {
 
 export default Edit;
 
-const styles = StyleSheet.create({
-	textInput: {
-		borderBottomWidth: 1,
-		borderBottomColor: 'grey',
-		flexDirection: 'row',
-		alignItems: 'center',
-		marginHorizontal: 20,
-		marginBottom: 20
-	}
-});

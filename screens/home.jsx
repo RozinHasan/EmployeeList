@@ -12,14 +12,14 @@ const SHIFT_OPTIONS = [ 'Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri' ];
 
 const Home = ({ navigation }) => {
 	const currentUser = firebase.auth().currentUser;
+	const employeeRef = firebase.firestore().collection('employees');
 	const [ employee, setEmployee ] = React.useState([]);
 	const [ loading, setLoading ] = React.useState(false);
-	const employeeRef = firebase.firestore().collection('employees');
 
 	//retrieve documents for current user
 	React.useEffect(() => {
 		setLoading(true);
-		const subscriber = employeeRef.where('userId', '==', currentUser.uid).onSnapshot((snapshot) => {
+	employeeRef.where('userId', '==', currentUser.uid).onSnapshot((snapshot) => {
 			const newEmployee = [];
 			snapshot.forEach((doc) => {
 				newEmployee.push({
@@ -30,7 +30,6 @@ const Home = ({ navigation }) => {
 			setEmployee(newEmployee);
 			setLoading(false);
 		});
-		return subscriber;
 	}, []);
 
 	const renderEmployee = ({ item }) => {
