@@ -33,7 +33,6 @@ const Create = ({ navigation }) => {
 			temp.splice(temp.indexOf(item), 1);
 			setShift([...temp]);
 		}
-		console.warn(shift);
 	};
 
 
@@ -110,7 +109,7 @@ const Create = ({ navigation }) => {
 						height: 120,
 						width: 120,
 						borderRadius: 60,
-						marginBottom: 40,
+						marginBottom: 20,
 						backgroundColor: 'dodgerblue',
 						justifyContent: 'center',
 						alignSelf: 'center',
@@ -143,13 +142,12 @@ const Create = ({ navigation }) => {
 						<RadioInput key={index} title={options} value={gender} setValue={setGender} />
 					))}
 				</View>
-				<Text style={{ marginLeft: 30, marginBottom: 10, fontWeight: 'bold' }}>Select shifts</Text>
+				<Text style={{ marginLeft: 30, marginTop: 10, fontWeight: 'bold' }}>Select shifts</Text>
 				<Text style={{ marginLeft: 30, marginBottom: 20 }}>You can select multiple shifts</Text>
 				<View style={{ flexDirection: 'row', alignSelf: 'center' }}>
 					{SHIFT_OPTIONS.map((options, index) => (
-						<Selection key={index} title={options} 
-						value = {
-							shift.map(item => item)} setValue={shiftArray} />
+						<Selection key={index} title={options} value={shift[shift.indexOf(options)]}
+						 setValue={shiftArray} />
 						))}
 				</View> 
 				{loading ? (

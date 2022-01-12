@@ -10,15 +10,14 @@ const Input = ({ placeholder, value, onchangeText, customStyle, secureInput = fa
 			<View
 				style={{
 					borderWidth: 0.5,
-					height: 60,
+					height: 50,
 					justifyContent: 'center',
 					alignItems: 'center',
-					borderRadius: 10,
+					borderRadius: 3,
 					borderColor: 'grey',
-					backgroundColor: '#F7F8FD',
 					flexDirection: 'row',
 					alignItems: 'center',
-					marginBottom: 20
+					marginBottom: 10
 				}}
 			>
 				<TextInput

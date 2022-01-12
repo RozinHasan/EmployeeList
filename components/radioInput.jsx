@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
 	container: {
 		flexDirection: 'row',
 		paddingHorizontal: 20,
-		marginBottom: 20,
+		marginBottom: 15,
 		marginTop: 15
 	},
 	outerCircle: {
