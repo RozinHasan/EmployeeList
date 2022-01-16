@@ -55,6 +55,7 @@ const Edit = ({ route, navigation }) => {
           message: "Success",
           description: "Data has been succesfully saved",
           type: "success",
+          animated: true
         });
         navigation.navigate("Home");
       })
